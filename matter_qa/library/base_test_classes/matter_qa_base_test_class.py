@@ -227,7 +227,6 @@ class MatterQABaseTestCaseClass(MatterBaseTest):
                     self.pre_iteration()
                     self.test_config.current_iteration = self.current_iteration
                     try:
-                        #result = func(*args, **kwargs)
                         await func(*args, **kwargs)
                     except (IterationError,TestCaseError) as e:
                         print("I got exception, failed iteration {}".format(self.current_iteration))
@@ -315,6 +314,7 @@ class MatterQABaseTestCaseClass(MatterBaseTest):
     def unpair_dut(self, controller=None, node_id=None) -> dict:
         try:
             if controller is None and node_id is None:
+
                 controller = self.default_controller
                 node_id = self.dut_node_id
 
@@ -324,7 +324,7 @@ class MatterQABaseTestCaseClass(MatterBaseTest):
             time.sleep(3)
             log.info("unpair_dut completed successfully")
             return True
-        
+
         except Exception as e:
             logging.error(e, exc_info=True)
             unpair_result = {"status": "failed", "failed_reason": e.msg}
